@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paninoteca | Neon & Crunch - Hexa Dijital</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/hero.css" />
+  </head>
+  <body>
+    <div class="floating-cta">
+      <a href="#delivery" class="btn-floating">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M5 10h14l-1.5 10h-11z" />
+          <path d="M9 10V6a3 3 0 0 1 6 0v4" />
+        </svg>
+        HEMEN SİPARİŞ VER
+      </a>
+    </div>
+    <nav class="navbar">
+      <div class="logo">
+        <img
+          src="assets/img/logo/headerlogo.png"
+          alt="logo"
+          style="max-width: 240px"
+        />
+      </div>
+
+      <button class="hamburger" aria-label="Menüyü Aç/Kapat">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-menu">
+        <div class="nav-links">
+          <a href="index.html#anasayfa">Anasayfa</a>
+          <a href="menu.html" style="color: var(--color-green)">Menü</a>
+          <a href="index.html#nasıl-yapıyoruz">Nasıl Yapıyoruz</a>
+          <a href="index.html#hakkımızda">Hakkımızda</a>
+          <a href="index.html#şubelerimiz">Şubelerimiz</a>
+        </div>
+
+        <a
+          href="index.html#delivery"
+          class="btn-order"
+          style="text-decoration: none"
+        >
+          Sipariş Ver
+        </a>
+      </div>
+    </nav>
+
+    <header class="hero-section" id="anasayfa">
+      <div class="hero-bg">
+        <img src="assets/img/hero3.webp" alt="Background" />
+      </div>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <h2 class="hero-subtitle">Yeni Nesil Lezzet</h2>
+        <h1 class="hero-title">
+          <span class="block-text">PANINOTECA</span>
+          <span class="block-text outline-text">CHICKEN</span>
+        </h1>
+        <p class="hero-desc">
+          Renkli ekmekler, patlayan lezzetler ve Paninoteca dünyası.
+        </p>
+      </div>
+
+      <div class="scroll-icon">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+    </header>
+    <div class="marquee-section">
+      <div class="marquee-content">
+        <span
+          >%100 DOĞAL • ASLA DONUK YOK • EL YAPIMI EKMEK • SINIRSIZ SOS •
+          BURSA'NIN EN İYİSİ •
+        </span>
+        <span
+          >%100 DOĞAL • ASLA DONUK YOK • EL YAPIMI EKMEK • SINIRSIZ SOS •
+          BURSA'NIN EN İYİSİ •
+        </span>
+      </div>
+    </div>
+
+    <section class="slider-section">
+      <div class="container section-header">
+        <div class="header-text">
+          <h3>Favoriler</h3>
+          <h2>En Sevilen Lezzetlerimiz</h2>
+        </div>
+        <div class="slider-buttons">
+          <button class="swiper-prev-btn">←</button>
+          <button class="swiper-next-btn">→</button>
+        </div>
+      </div>
+
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="product-card card-green">
+              <div class="badge">BESTSELLER</div>
+              <img src="assets/img/menu/chick.webp" alt="Burger" />
+              <div class="card-info">
+                <h3>Chicken Burger</h3>
+                <p>Renkli ekmek, çıtır tavuk, cheddar şelalesi.</p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="product-card card-purple">
+              <img src="assets/img/menu/snitz_pesto.webp" alt="Makarna" />
+              <div class="card-info">
+                <h3>Makarna</h3>
+                <p>
+                  Kremalı mantarlı, pesto veya domates soslu doyurucu İtalyan
+                  lezzeti.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="product-card card-pink">
+              <img src="assets/img/menu/swag.webp" alt="Şnitzel" />
+              <div class="card-info">
+                <h3>Şnitzel Sandwich</h3>
+                <p>
+                  Altın sarısı çıtır kaplaması, yanında enfes patates kızartması
+                  ve özel sosuyla.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="product-card card-green">
+              <img src="assets/img/menu/mantarli.webp" alt="Sandviç" />
+              <div class="card-info">
+                <h3>Alevli Tavuk Sandwich</h3>
+                <p>
+                  Bol malzemeli, erimiş kaşarlı ve özel acı soslu doyurucu
+                  sandviç.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="product-card card-purple">
+              <img src="assets/img/menu/win_bun.webp" alt="Bun'S" />
+              <div class="card-info">
+                <h3>Bun'S</h3>
+                <p>
+                  Yumuşacık buharda pişmiş bao ekmeği arasında taze ve lezzetli
+                  dolgular.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="product-card card-purple">
+              <img src="assets/img/menu/kanat.webp" alt="Çıtır Tavuk" />
+              <div class="card-info">
+                <h3>Çıtır Tavuk</h3>
+                <p>
+                  Dışı çıtır çıtır, içi sulu sulu baharatlı kızarmış enfes tavuk
+                  parçaları.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="product-card card-pink">
+              <img src="assets/img/menu/kanatbut.webp" alt="Çılgın Kanat" />
+              <div class="card-info">
+                <h3>Çılgın Kanat</h3>
+                <p>12'li acılı kanat, özel dip soslar ve baharat şöleni.</p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="product-card card-purple">
+              <img
+                src="assets/img/menu/baharatli.webp"
+                alt="Patates Kızartması"
+              />
+              <div class="card-info">
+                <h3>French Fries</h3>
+                <p>
+                  Dışı çıtır, içi yumuşacık, özel baharatlarla harmanlanmış
+                  altın sarısı patatesler.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="product-card card-pink">
+              <img src="assets/img/menu/mozarella.webp" alt="Kroket" />
+              <div class="card-info">
+                <h3>Kroket</h3>
+                <p>
+                  Peynir ve patates dolgulu, dışı çıtır çıtır, ağızda dağılan
+                  atıştırmalık.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card card-pink">
+              <img src="assets/img/menu/mor.webp" alt="Salatalar" />
+              <div class="card-info">
+                <h3>Salatalar</h3>
+                <p>
+                  Mevsim yeşillikleri, taze sebzeler ve hafif soslarla
+                  hazırlanan ferahlatıcı lezzetler.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card card-pink">
+              <img src="assets/img/menu/sweetchilisos.webp" alt="Soslar" />
+              <div class="card-info">
+                <h3>Soslar</h3>
+                <p>
+                  Yemeklerinize ekstra lezzet katacak özel yapım dip soslar ve
+                  marinasyonlar.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card card-pink">
+              <img src="assets/img/menu/pepsi.webp" alt="İçecekler" />
+              <div class="card-info">
+                <h3>İçecekler</h3>
+                <p>
+                  Ev yapımı limonata, sıcak/soğuk kahveler ve ferahlatıcı
+                  meşrubat çeşitleri.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card card-pink">
+              <img src="assets/img/menu/bubletea.webp" alt="Bubble Tea" />
+              <div class="card-info">
+                <h3>Bubble Tea</h3>
+                <p>
+                  Ferahlatıcı meyve aromaları ve patlayan tapyoka incileriyle
+                  eğlenceli içecek deneyimi.
+                </p>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="delivery-section" id="delivery">
+      <div class="container">
+        <div class="delivery-box">
+          <div class="delivery-text">
+            <h3 style="color: var(--color-pink); text-align: left">
+              CANIN MI ÇEKTİ?
+            </h3>
+            <h2>
+              OTURDUĞUN YERDEN <br />
+              <span style="color: white">SİPARİŞ VER</span>
+            </h2>
+            <p>Sıcak, hızlı ve aynı lezzetle kapında.</p>
+          </div>
+          <div class="delivery-logos">
+            <a
+              href="https://www.yemeksepeti.com/restaurant/bixj/paninoteca-chicken"
+              target="_blank"
+              class="platform-btn ys"
+              >Yemeksepeti</a
+            >
+            <a
+              href="https://tgoyemek.com/restoranlar/101051#pani-chicken-burger"
+              target="_blank"
+              class="platform-btn ty"
+              >Trendyol Yemek</a
+            >
+            <a href="#" class="platform-btn gt">Getir Yemek</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process-section" id="nasıl-yapıyoruz">
+      <div class="container">
+        <div class="section-header center-header">
+          <h3>Mutfağın Sırları</h3>
+          <h2>NASIL <span id="process-title-highlight">YAPIYORUZ?</span></h2>
+        </div>
+
+        <div class="process-tabs">
+          <button class="tab-btn active" onclick="switchProcess('burger')">
+            Çıtır Burger
+          </button>
+          <button class="tab-btn" onclick="switchProcess('tea')">
+            Bubble Tea
+          </button>
+        </div>
+
+        <div id="burger-process" class="process-grid active-process">
+          <div class="process-card green-theme">
+            <div class="step-number">01</div>
+            <div class="step-img">
+              <img
+                src="https://images.pexels.com/photos/32177254/pexels-photo-32177254.png?_gl=1*oespfz*_ga*MjEyNzIxODI3Ny4xNzY5MjU2NDYy*_ga_8JE65Q40S6*czE3NjkyNjg2ODckbzMkZzEkdDE3NjkyNjg2OTgkajQ5JGwwJGgw"
+                alt="Hamur"
+              />
+            </div>
+            <h4>Renkli Hamur</h4>
+            <p>
+              Günlük taze süt ve doğal pancar/ıspanak özleriyle renkli ekmek
+              hamurlarımızı yoğuruyoruz.
+            </p>
+          </div>
+          <div class="process-card green-theme">
+            <div class="step-number">02</div>
+            <div class="step-img">
+              <img
+                src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=2070&auto=format&fit=crop"
+                alt="Kaplama"
+              />
+            </div>
+            <h4>Çıtır Kaplama</h4>
+            <p>
+              Tavuklarımızı 12 farklı baharat içeren özel karışımımıza bulayıp
+              çıtırlık kazanmasını sağlıyoruz.
+            </p>
+          </div>
+          <div class="process-card green-theme">
+            <div class="step-number">03</div>
+            <div class="step-img">
+              <img
+                src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=2565&auto=format&fit=crop"
+                alt="Pişirme"
+              />
+            </div>
+            <h4>Ateşle Dans</h4>
+            <p>
+              Tam kıvamında, içi sulu dışı çıtır olacak şekilde, özel
+              fritözlerimizde altın sarısı olana dek pişiriyoruz.
+            </p>
+          </div>
+          <div class="process-card green-theme">
+            <div class="step-number">04</div>
+            <div class="step-img">
+              <img
+                src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1899&auto=format&fit=crop"
+                alt="Birleşim"
+              />
+            </div>
+            <h4>Büyük Buluşma</h4>
+            <p>
+              Erimiş cheddar şelalesi ve taze yeşilliklerle birleştirip sıcak
+              servis ediyoruz.
+            </p>
+          </div>
+        </div>
+
+        <div id="tea-process" class="process-grid hidden-process">
+          <div class="process-card pink-theme">
+            <div class="step-number">01</div>
+            <div class="step-img">
+              <img
+                src="https://images.pexels.com/photos/32848535/pexels-photo-32848535.jpeg?_gl=1*hpdiil*_ga*MjEyNzIxODI3Ny4xNzY5MjU2NDYy*_ga_8JE65Q40S6*czE3NjkyNjg2ODckbzMkZzEkdDE3NjkyNjkxNDAkajQ3JGwwJGgw"
+                alt="Poppin Topları"
+              />
+            </div>
+            <h4>Poppin Topları</h4>
+            <p>
+              Bubble Tea’nin kalbi! İçi meyve suyu dolu bu özel topları bardağın
+              en dibine yerleştiriyoruz.
+            </p>
+          </div>
+
+          <div class="process-card pink-theme">
+            <div class="step-number">02</div>
+            <div class="step-img">
+              <img
+                src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1974&auto=format&fit=crop"
+                alt="Zengin Tat"
+              />
+            </div>
+            <h4>Zengin Tat</h4>
+            <p>
+              Siyah veya yeşil çay bazını; çilek, mango, çikolata gibi favori
+              aromanla buluşturuyoruz.
+            </p>
+          </div>
+
+          <div class="process-card pink-theme">
+            <div class="step-number">03</div>
+            <div class="step-img">
+              <img
+                src="https://images.pexels.com/photos/35255180/pexels-photo-35255180.jpeg?_gl=1*p5ca1w*_ga*MjEyNzIxODI3Ny4xNzY5MjU2NDYy*_ga_8JE65Q40S6*czE3NjkyNjg2ODckbzMkZzEkdDE3NjkyNjkxNjUkajIyJGwwJGgw"
+                alt="Görsel Şölen"
+              />
+            </div>
+            <h4>Görsel Şölen</h4>
+            <p>
+              Şeffaf bardağa buzları ekliyor, renklerin dansını izlemen için
+              kapağını kapatıyoruz.
+            </p>
+          </div>
+
+          <div class="process-card pink-theme">
+            <div class="step-number">04</div>
+            <div class="step-img">
+              <img
+                src="https://images.unsplash.com/photo-1525203135335-74d272fc8d9c?q=80&w=2000&auto=format&fit=crop"
+                alt="Keyfini Sür"
+              />
+            </div>
+            <h4>Keyfini Sür</h4>
+            <p>
+              Geniş pipeti daldır, derin bir nefes çek ve ağzında patlayan
+              lezzet toplarının tadını çıkar!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="video-parallax-section">
+      <div class="parallax-wrapper">
+        <video
+          class="parallax-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=2565"
+        >
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-a-burger-being-made-16006-large.mp4"
+            type="video/mp4"
+          />
+          Tarayıcınız video etiketini desteklemiyor.
+        </video>
+
+        <div class="video-overlay"></div>
+      </div>
+
+      <div class="video-content container">
+        <h2 class="neon-title-large">
+          ATMOSFERİ <span class="text-outline">HİSSET</span>
+        </h2>
+        <p class="video-desc">
+          Sadece bir yemek değil, ışıkların, müziğin ve lezzetin dansı.
+        </p>
+
+        <button class="play-btn-large">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <section class="testimonials-section" id="yorumlar">
+      <div class="container">
+        <div class="section-header center-header">
+          <h3 style="color: var(--color-pink)">Sosyal Kanıt</h3>
+          <h2>MÜŞTERİ <span class="outline-text">YORUMLARI</span></h2>
+        </div>
+
+        <div class="reviews-grid">
+          <div class="review-card glass-theme">
+            <div class="stars">★★★★★</div>
+            <p>
+              "Bursa'da yediğim açık ara en iyi tavuk burger! Ekmeklerin rengi
+              ve çıtırlığı efsane, asla donuk tat gelmiyor."
+            </p>
+            <div class="reviewer">
+              <strong>Ahmet Y.</strong>
+              <span>Google Yorumu</span>
+            </div>
+          </div>
+
+          <div class="review-card glass-theme">
+            <div class="stars">★★★★★</div>
+            <p>
+              "Bubble Tea denemek için gittik, ortamın enerjisi ve çalışanların
+              ilgisi harikaydı. Favori mekanım oldu."
+            </p>
+            <div class="reviewer">
+              <strong>Selin K.</strong>
+              <span>Yemeksepeti</span>
+            </div>
+          </div>
+
+          <div class="review-card glass-theme">
+            <div class="stars">★★★★★</div>
+            <p>
+              "Sosu, patatesin baharatı, her şeyiyle dört dörtlük. Millet
+              Mahallesi'ne böyle bir kalite lazımdı!"
+            </p>
+            <div class="reviewer">
+              <strong>Caner B.</strong>
+              <span>Trendyol Yemek</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section" id="hakkımızda">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-text">
+            <h3 class="neon-subtitle">BİZİM HİKAYEMİZ</h3>
+            <h2 class="section-title left-align">
+              LEZZETİN <span class="text-outline">ARKASINDAKİ GÜÇ</span>
+            </h2>
+
+            <p class="about-desc">
+              Paninoteca, sıradan fast-food zincirlerine bir başkaldırı olarak
+              doğdu. Bizim için yemek sadece karın doyurmak değil, bir
+              <strong>deneyimdir.</strong>
+            </p>
+            <p class="about-desc">
+              Bursa'nın kalbinde başlayan yolculuğumuzda tek bir kuralımız var:
+              <span class="highlight-text">"Asla Donuk Ürün Kullanma."</span>
+              Her sabah taze ekmeklerimizi kendimiz pişiriyor, soslarımızı
+              günlük hazırlıyoruz.
+            </p>
+
+            <div class="stats-container">
+              <div class="stat-box">
+                <span class="stat-number">150K+</span>
+                <span class="stat-label">Mutlu Müşteri</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-number">14</span>
+                <span class="stat-label">Özel Sos</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-image">
+            <div class="circle-deco"></div>
+            <img
+              src="assets/img/hero.webp"
+              alt="Paninoteca Ekibi"
+              class="main-img"
+            />
+            <div class="floating-badge glass-card">
+              <span class="star">★</span>
+              <div>
+                <strong>%100 Müşteri Memnuniyeti</strong>
+                <small>Google Değerlendirmeleri</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-section">
+      <div class="container">
+        <div class="section-header center-header">
+          <h3>Sosyal Medya</h3>
+          <h2>
+            BİZİ TAKİP ET
+            <span style="color: var(--color-purple)">#PANINOTECA</span>
+          </h2>
+        </div>
+
+        <div class="insta-grid">
+          <a
+            href="https://www.instagram.com/p/DQDIH9VCEZx/"
+            target="_blank"
+            class="insta-item"
+          >
+            <img src="assets/img/insta1.webp" alt="Burger" />
+            <div class="insta-overlay"><span class="insta-icon">📸</span></div>
+          </a>
+          <a
+            href="https://www.instagram.com/p/DNk5LrSo5IK/"
+            target="_blank"
+            class="insta-item"
+          >
+            <img src="assets/img/insta2.webp" alt="Ortam" />
+            <div class="insta-overlay"><span class="insta-icon">📸</span></div>
+          </a>
+          <a href="https://www.instagram.com/p/DNYfugtICKT/" class="insta-item">
+            <img src="assets/img/insta3.webp" alt="İçecek" />
+            <div class="insta-overlay"><span class="insta-icon">📸</span></div>
+          </a>
+          <a href="https://www.instagram.com/p/DMkMzwsoaDD/" class="insta-item">
+            <img src="assets/img/insta4.webp" alt="Arkadaş Ortamı" />
+            <div class="insta-overlay"><span class="insta-icon">📸</span></div>
+          </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem">
+          <a
+            href="https://www.instagram.com/paninoteca_chicken/"
+            class="btn-primary"
+            style="
+              background: transparent;
+              border: 1px solid white;
+              color: white;
+            "
+            >@paninoteca.chicken</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="şubelerimiz">
+      <div class="container">
+        <div class="contact-container">
+          <div class="contact-info-card">
+            <div class="info-header">
+              <h3 class="neon-subtitle">BİZİ ZİYARET ET</h3>
+              <h2 class="branch-title">
+                MİLLET <span class="highlight-text">MAHALLESİ</span>
+              </h2>
+              <p class="branch-desc">
+                Paninoteca'nın eşsiz atmosferini ve lezzetlerini yerinde
+                deneyimle.
+              </p>
+            </div>
+
+            <div class="info-details">
+              <div class="detail-box">
+                <div class="icon-circle">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                    ></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <div class="text-group">
+                  <span class="label">Adres</span>
+                  <p>Millet Mh. 8. Ova SK. NO:58 <br />Yıldırım / BURSA</p>
+                </div>
+              </div>
+
+              <div class="detail-box">
+                <div class="icon-circle">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="text-group">
+                  <span class="label">Rezervasyon & Sipariş</span>
+                  <p>0531 456 84 12</p>
+                </div>
+              </div>
+
+              <div class="detail-box">
+                <div class="icon-circle">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div class="text-group">
+                  <span class="label">Çalışma Saatleri</span>
+                  <p>
+                    Her Gün:
+                    <span style="color: var(--color-green); font-weight: 700"
+                      >11:00 - 02:00</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="https://maps.app.goo.gl/ubGpWCYQVSHV1Wiy7"
+              target="_blank"
+              class="btn-primary full-width-btn"
+            >
+              Yol Tarifi Al
+            </a>
+          </div>
+
+          <div class="map-frame">
+            <div class="map-overlay-text">PANINOTECA</div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6093.914168696624!2d29.086775462766486!3d40.21001756873837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ca3f2c516f2491%3A0xea3635565a4ee726!2sPaninoteca%20Chicken!5e0!3m2!1str!2str!4v1771174755326!5m2!1str!2str"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+            >
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <p>
+        &copy; 2026 Paninoteca. Tasarım:
+        <a
+          href="https://hexadijital.com"
+          target="_blank"
+          style="text-decoration: none"
+        >
+          <span>HEXA Dijital</span>
+        </a>
+      </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1624 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menü | Paninoteca - Neon & Crunch</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/hero.css" />
+
+    <style>
+      /* Bu sayfaya özel CSS'ler (Dosya kalabalığı yapmamak için buraya ekledim, istersen style.css'e taşıyabilirsin) */
+
+      /* Sayfa Başlığı (Mini Hero) */
+      .page-header {
+        height: 40vh;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.7), #050505),
+          url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070");
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        margin-top: 80px; /* Navbar payı */
+      }
+
+      /* Yapışkan Kategori Menüsü */
+      .category-nav {
+        position: fixed; /* Sticky yerine Fixed kullanıyoruz ki hep orada kalsın */
+        bottom: 0; /* En alta yapıştır */
+        left: 0;
+        width: 100%; /* Tam genişlik */
+        top: auto; /* Üstteki eski ayarı iptal et */
+        z-index: 1000; /* Diğer her şeyin üstünde dursun */
+
+        background: rgba(10, 10, 10, 0.95); /* Hafif şeffaf siyah zemin */
+        backdrop-filter: blur(10px); /* Buzlu cam efekti */
+
+        border-top: 1px solid rgba(255, 255, 255, 0.1); /* Çizgiyi artık üste alıyoruz */
+        border-bottom: none; /* Alt çizgiyi kaldır */
+
+        padding: 1rem 0;
+        /* iPhone'lardaki alttaki siyah çubuk (Home Indicator) için güvenli boşluk */
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+
+        overflow-x: auto; /* Yana kaydırma */
+        white-space: nowrap;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8); /* Gölgeyi yukarı doğru ver */
+      }
+
+      /* Scrollbar gizleme */
+      .category-nav::-webkit-scrollbar {
+        height: 4px;
+      }
+      .category-nav::-webkit-scrollbar-thumb {
+        background: var(--color-green);
+      }
+
+      .cat-list {
+        display: inline-flex;
+        gap: 1rem;
+        padding: 0 1.5rem;
+        list-style: none;
+      }
+
+      .cat-btn {
+        color: var(--color-gray);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.5rem 1.2rem;
+        border-radius: 99px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: 0.3s;
+        text-transform: uppercase;
+      }
+
+      .cat-btn:hover,
+      .cat-btn.active {
+        background: var(--color-green);
+        color: black;
+        border-color: var(--color-green);
+        box-shadow: 0 0 15px rgba(204, 255, 0, 0.4);
+      }
+
+      /* Menü İçerik Alanı */
+      .menu-wrapper {
+        padding: 4rem 0;
+        background: #050505;
+      }
+
+      .menu-category {
+        scroll-margin-top: 180px; /* Scroll yapınca başlığın altında kalmasın */
+        margin-bottom: 4rem;
+      }
+
+      .category-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 2rem;
+        padding-left: 1rem;
+        border-left: 5px solid var(--color-green);
+        display: inline-block;
+      }
+
+      .pani-prefix {
+        color: var(--color-pink);
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: -5px;
+      }
+
+      /* Ürün Grid Yapısı */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      /* Ürün Kartı */
+      .menu-item {
+        background: #111;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 1.5rem;
+        overflow: hidden;
+        transition: 0.3s;
+        position: relative;
+      }
+
+      .menu-item:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-green);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .item-img {
+        height: 190px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .item-content {
+        padding: 1.5rem;
+      }
+
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.5rem;
+      }
+
+      .item-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+      }
+
+      .item-price {
+        color: var(--color-green);
+        font-weight: 900;
+        font-size: 1.2rem;
+      }
+
+      .item-desc {
+        color: var(--color-gray);
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+      }
+
+      .btn-add-cart {
+        width: 100%;
+        padding: 0.8rem;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 0.5rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .btn-add-cart:hover {
+        background: var(--color-green);
+        color: black;
+        border-color: var(--color-green);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <img
+          src="assets/img/logo/headerlogo.png"
+          alt="logo"
+          style="max-width: 240px"
+        />
+      </div>
+
+      <button class="hamburger" aria-label="Menüyü Aç/Kapat">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-menu">
+        <div class="nav-links">
+          <a href="index.html">Anasayfa</a>
+          <a href="menu.html" style="color: var(--color-green)">Menü</a>
+          <a href="index.html">Nasıl Yapıyoruz</a>
+          <a href="index.html">Hakkımızda</a>
+          <a href="index.html">Şubelerimiz</a>
+        </div>
+
+        <a
+          href="index.html#delivery"
+          class="btn-order"
+          style="text-decoration: none"
+        >
+          Sipariş Ver
+        </a>
+      </div>
+    </nav>
+    <header class="page-header">
+      <div>
+        <h2 class="neon-subtitle">KEŞFETMEYE HAZIR MISIN?</h2>
+        <h1 style="font-size: 4rem; font-weight: 900; line-height: 1">
+          LEZZET <span style="color: var(--color-green)">KATALOĞU</span>
+        </h1>
+      </div>
+    </header>
+
+    <div class="category-nav">
+      <ul class="cat-list">
+        <li><a href="#cat-burger" class="cat-btn active">Burger</a></li>
+        <li><a href="#cat-makarna" class="cat-btn">Makarna</a></li>
+        <li><a href="#cat-snitzel" class="cat-btn">Şnitzel</a></li>
+        <li><a href="#cat-alevli" class="cat-btn">Alevli</a></li>
+        <li><a href="#cat-buns" class="cat-btn">Bun's</a></li>
+        <li><a href="#cat-citir" class="cat-btn">Çıtır</a></li>
+        <li><a href="#cat-kanat" class="cat-btn">Kanat</a></li>
+        <li><a href="#cat-fries" class="cat-btn">Fries</a></li>
+        <li><a href="#cat-kroket" class="cat-btn">Kroket</a></li>
+        <li><a href="#cat-salata" class="cat-btn">Salata</a></li>
+        <li><a href="#cat-sos" class="cat-btn">Soslar</a></li>
+        <li><a href="#cat-icecek" class="cat-btn">İçecek</a></li>
+        <!-- <li>
+          <a
+            href="#cat-bubble"
+            class="cat-btn"
+            style="color: var(--color-pink); border-color: var(--color-pink)"
+            >Bubble Tea</a
+          >
+        </li> -->
+      </ul>
+    </div>
+
+    <div class="menu-wrapper">
+      <div class="container">
+        <section id="cat-burger" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Chicken Burger
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/beca.webp"
+                class="item-img"
+                alt="Burger"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Beca Fried Chicken Burger</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Yumuşacık ekmekte çıtır tavuk, mor lahana ve kıtır soğanlı
+                  burger, patates kızartması eşliğinde kusursuz bir lezzet
+                  sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/chick.webp"
+                class="item-img"
+                alt="Burger"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Chick Fried Chicken Burger</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Çıtır tavuk, ranch sos ve yoğun cheddar'ın kıtır soğanla
+                  buluştuğu bu burger, sos severler için unutulmaz bir lezzet
+                  sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/sweet.webp"
+                class="item-img"
+                alt="Burger"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Sweet Fried Chicken Burger</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Jalapeno ve sweet chili soslu çıtır tavuk burger, patates
+                  kızartmasıyla birlikte dengeli ve acı-tatlı bir lezzet
+                  sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/win.webp"
+                class="item-img"
+                alt="Burger"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Win Fried Chicken Burger</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Tatlı mısır salatası ve kıtır soğanlı tavuk burger, patates
+                  kızartmasıyla ferah ve doyurucu bir denge sunuyor.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-makarna" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Makarna
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/mac.webp"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Mac and Cheese Soslu Makarna</h3>
+                  <span class="item-price">₺200</span>
+                </div>
+                <p class="item-desc">
+                  Özel peynir soslu akışkan kalem makarna; her çatalda uzayan
+                  kremamsı dokusuyla mac and cheese tutkunlarına yoğun bir
+                  lezzet sunuyor.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/pesto.webp"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Pesto Soslu Makarna</h3>
+                  <span class="item-price">₺200</span>
+                </div>
+                <p class="item-desc">
+                  Fesleğen ve parmesan peynirinin muhteşem uyumuyla harmanlanan
+                  kalem makarna, her lokmada taze ve yoğun bir aroma sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/kori.webp"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Köri Soslu Makarna</h3>
+                  <span class="item-price">₺200</span>
+                </div>
+                <p class="item-desc">
+                  Kremalı sos ve egzotik baharatların birleştiği bu lezzet,
+                  akışkan ve bol soslu dokusuyla benzersiz bir deneyim
+                  vadediyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/snitz_mac.webp"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">S^Nitz Mac</h3>
+                  <span class="item-price">₺300</span>
+                </div>
+                <p class="item-desc">
+                  Peynir aşkına! Akışkan mac and cheese soslu makarna ve dışı
+                  çıtır şnitzel parçaları, doyurucu bir lezzet dengesi
+                  oluşturuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/snitz_pesto.webp"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">S^Nitz Pesto</h3>
+                  <span class="item-price">₺300</span>
+                </div>
+                <p class="item-desc">
+                  Taze fesleğenli aromatik pesto soslu kalem makarna, dışı çıtır
+                  içi sulu özel şnitzel ile buluşarak İtalyan rüzgarları
+                  estiriyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="https://images.pexels.com/photos/1487511/pexels-photo-1487511.jpeg?w=500"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">S^Nitz Cury</h3>
+                  <span class="item-price">₺300</span>
+                </div>
+                <p class="item-desc">
+                  Aromatik köri soslu kalem makarna ve çıtır tavuk şnitzel;
+                  baharatın en iştah açıcı halini doyurucu bir klasik olarak
+                  sunuyor.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="https://images.pexels.com/photos/1487511/pexels-photo-1487511.jpeg?w=500"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">S^Nitz Cury Salad</h3>
+                  <span class="item-price">₺350</span>
+                </div>
+                <p class="item-desc">
+                  Köri soslu kalem makarna, çıtır tavuk parçaları, mısır
+                  salatası ve sweet chili soslu taze salatayla zenginleşen bu
+                  kutu, her lokmada farklı bir aroma sunuyor.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="https://images.pexels.com/photos/1487511/pexels-photo-1487511.jpeg?w=500"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">S^Nitz Mac Salad</h3>
+                  <span class="item-price">₺350</span>
+                </div>
+                <p class="item-desc">
+                  Cheddar soslu mac and cheese makarna ve imza baharatlı çıtır
+                  tavuk; sweet chili soslu salata çeşitleriyle birleşerek zengin
+                  bir lezzet turu sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="https://images.unsplash.com/photo-1626844131082-256783844137?w=500"
+                class="item-img"
+                alt="Makarna"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">S^Nitz Pesto Salad</h3>
+                  <span class="item-price">₺350</span>
+                </div>
+                <p class="item-desc">
+                  Özel baharatlı çıtır tavuklar ve pesto soslu kalem makarna;
+                  yanındaki taze salata çeşitleriyle protein ve karbonhidratın
+                  en uyumlu buluşmasını sunuyor.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-snitzel" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Şnitzel Sandwich
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/rine.webp"
+                class="item-img"
+                alt="Sandwich"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Rine Şnitzel Sandwich</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Çift çıtırlık etkili şnitzel ve crispy onion ikilisi, sweet
+                  chili sos ve taze iceberg marul ile birleşerek patates
+                  kızartması eşliğinde sınır tanımayan bir lezzet sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/swag.webp"
+                class="item-img"
+                alt="Sandwich"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Swag Şnitzel Sandwich</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Yumuşacık ekmekte çıtır şnitzel, kıtır soğan ve taze mor
+                  lahana salatasının uyumu; patates kızartması eşliğinde
+                  doyurucu bir lezzet paketi sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/win_snitzel.webp"
+                class="item-img"
+                alt="Sandwich"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Win Şnitzel Sandwich</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Özel baharatlı şnitzel ve crispy onion ikilisi, yoğurtlu mısır
+                  salatasının ferahlığı ve çıtır patates kızartmasıyla mükemmel
+                  bir ziyafet sunuyor.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-alevli" class="menu-category">
+          <h2 class="category-title" style="border-color: var(--color-pink)">
+            <span class="pani-prefix">PANİ *</span> Alevli Tavuk Sandwich
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/barbeku_sand.webp"
+                class="item-img"
+                alt="Alevli"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Barbekü Soslu Tavuk Sandwich</h3>
+                  <span class="item-price">₺300</span>
+                </div>
+                <p class="item-desc">
+                  Barbekü sosun isli aromasıyla buluşan 120 gr sotelenmiş tavuk
+                  ve taze iceberg marul; patates kızartması eşliğinde şefin
+                  tavsiyesi bir lezzet yolculuğu sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/sweet_sabd.webp"
+                class="item-img"
+                alt="Alevli"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Sweet Chili Soslu Tavuk Sandwich</h3>
+                  <span class="item-price">₺300</span>
+                </div>
+                <p class="item-desc">
+                  120 gr sotelenmiş tavuk ve taze iceberg marulun sweet chili
+                  sosla buluştuğu bu sandviç, patates kızartması eşliğinde
+                  tatlı-acı dengesini zirveye taşıyor.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/mantarli.webp"
+                class="item-img"
+                alt="Alevli"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Mantarlı Köri Soslu Tavuk Sandviç</h3>
+                  <span class="item-price">₺300</span>
+                </div>
+                <p class="item-desc">
+                  120 gr sotelenmiş tavuk ve taze iceberg marulun köri sosla
+                  buluştuğu bu sandviç, patates kızartması eşliğinde zengin bir
+                  lezzet deneyimi sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="https://images.unsplash.com/photo-1604467715878-83e57e8bc129?w=500"
+                class="item-img"
+                alt="Alevli"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Cheddar Soslu Tavuk Sandwich</h3>
+                  <span class="item-price">₺300</span>
+                </div>
+                <p class="item-desc">
+                  120 gr sotelenmiş tavuk ve taze iceberg marulun yoğun akışkan
+                  cheddar sosla harmanlandığı bu sandviç, patates kızartması
+                  eşliğinde zengin bir lezzet şöleni sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="https://images.unsplash.com/photo-1604467715878-83e57e8bc129?w=500"
+                class="item-img"
+                alt="Alevli"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Ranch Soslu Tavuk Sandwich</h3>
+                  <span class="item-price">₺300</span>
+                </div>
+                <p class="item-desc">
+                  120 gr sotelenmiş tavuk ve taze iceberg marulun kremsi ranch
+                  sosla buluştuğu bu sandviç, patates kızartması eşliğinde
+                  ferahlatıcı bir lezzet deneyimi sunuyor.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-buns" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Bun'S
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/cheddar_bun.webp"
+                class="item-img"
+                alt="Buns"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Cheddar Bun</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Buharda pişmiş pofuduk bun ekmeğinde, 120 gr özel baharatlarla
+                  marine edilmiş çıtır tavuk, iceberg marul, cheddar sos, ranch
+                  sos (yanında patates kızartması ile servis edilir.)
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/swag_bun.webp"
+                class="item-img"
+                alt="Buns"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Swag Bun</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Buharda pişmiş pofuduk bun ekmeğinde, 120 gr. özel
+                  baharatlarla marine edilmiş çıtır tavuk, kırmızı lahana
+                  salatası (yanında patates kızartması ile servis edilir.)
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/win_bun.webp"
+                class="item-img"
+                alt="Buns"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Win Bun</h3>
+                  <span class="item-price">₺250</span>
+                </div>
+                <p class="item-desc">
+                  Buharda pişmiş pofuduk bun ekmeğinde, 120 gr özel baharatlarla
+                  marine edilmiş çıtır tavuk, yoğurtlu mısır salatası (yanında
+                  patates kızartması ile servis edilir.)
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-citir" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Çıtır Tavuk
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/kanat.webp"
+                class="item-img"
+                alt="Çıtır"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">3'lü Çıtır Tavuk</h3>
+                  <span class="item-price">₺100</span>
+                </div>
+                <p class="item-desc">
+                  Her ısırıkta o efsane çıtırtıyı hisset! Özel baharatlı pane
+                  harcıyla kaplanmış, dışı nar gibi kızarmış, içi yumuşacık ve
+                  sulu kalan tavuk parçaları!
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/kanat.webp"
+                class="item-img"
+                alt="Çıtır"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">5'lİ Çıtır Tavuk</h3>
+                  <span class="item-price">₺170</span>
+                </div>
+                <p class="item-desc">
+                  Her ısırıkta o efsane çıtırtıyı hisset! Özel baharatlı pane
+                  harcıyla kaplanmış, dışı nar gibi kızarmış, içi yumuşacık ve
+                  sulu kalan tavuk parçaları!
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/kanat.webp"
+                class="item-img"
+                alt="Çıtır"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">8'li Çıtır Tavuk</h3>
+                  <span class="item-price">₺270</span>
+                </div>
+                <p class="item-desc">
+                  Her ısırıkta o efsane çıtırtıyı hisset! Özel baharatlı pane
+                  harcıyla kaplanmış, dışı nar gibi kızarmış, içi yumuşacık ve
+                  sulu kalan tavuk parçaları!
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/nitz_box.webp"
+                class="item-img"
+                alt="Çıtır"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">S^Nitz Chips</h3>
+                  <span class="item-price">₺260</span>
+                </div>
+                <p class="item-desc">
+                  Her ısırıkta o efsane çıtırtıyı hisset! Özel baharatlı pane
+                  harcıyla kaplanmış, dışı nar gibi kızarmış, içi yumuşacık ve
+                  sulu kalan tavuk parçaları!
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/nitz_box.webp"
+                class="item-img"
+                alt="Çıtır"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Nitz Box</h3>
+                  <span class="item-price">₺350</span>
+                </div>
+                <p class="item-desc">
+                  Her ısırıkta o efsane çıtırtıyı hisset! Özel baharatlı pane
+                  harcıyla kaplanmış, dışı nar gibi kızarmış, içi yumuşacık ve
+                  sulu kalan tavuk parçaları!
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-kanat" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Çılgın Kanat
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/kanatbut.webp"
+                class="item-img"
+                alt="Kanat"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">4'lü Çıtır Kanat , But</h3>
+                  <span class="item-price">₺160</span>
+                </div>
+                <p class="item-desc">
+                  Özel sosla marine edilmiş, dışı nar gibi kızarmış içi
+                  yumuşacık çıtır kanatlar; bağımlılık yaratan lezzetiyle tam
+                  bir çıtırlık şöleni sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/kanatbut.webp"
+                class="item-img"
+                alt="Kanat"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">6'lı Çıtır Kanat , But</h3>
+                  <span class="item-price">₺240</span>
+                </div>
+                <p class="item-desc">
+                  Özel sosla marine edilmiş, dışı nar gibi kızarmış içi
+                  yumuşacık çıtır kanatlar; bağımlılık yaratan lezzetiyle tam
+                  bir çıtırlık şöleni sunuyor.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/kanatbut.webp"
+                class="item-img"
+                alt="Kanat"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">8'lı Çıtır Kanat , But</h3>
+                  <span class="item-price">₺320</span>
+                </div>
+                <p class="item-desc">
+                  Özel sosla marine edilmiş, dışı nar gibi kızarmış içi
+                  yumuşacık çıtır kanatlar; bağımlılık yaratan lezzetiyle tam
+                  bir çıtırlık şöleni sunuyor.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-fries" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> French Fries
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/sade.webp"
+                class="item-img"
+                alt="Fries"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Patates Kızartması Sade</h3>
+                  <span class="item-price">₺120</span>
+                </div>
+                <p class="item-desc">
+                  Kızartmanın en hafif hali! Yağ barındırmayan, sadece patatesin
+                  gerçek lezzetini hissettiren özel formül. Sıcacık, taptaze ve
+                  tam kıvamında. Yemeğinin yanına en çok yakışan, sadeliğiyle
+                  fark yaratan lezzet.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/baharatli.webp"
+                class="item-img"
+                alt="Fries"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Patates Kızartması Baharatlı</h3>
+                  <span class="item-price">₺140</span>
+                </div>
+                <p class="item-desc">
+                  Çıtırtının kajun baharatı ile dansı! Formunu koruyan, yağsız
+                  ve taptaze patatesler, özel çeşnilerle zenginleşti. Hem hafif
+                  hem de damak çatlatan, yemeğin en iddialı eşlikçisi.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/cheddar.webp"
+                class="item-img"
+                alt="Fries"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Cheddar Soslu Patates Kızartması</h3>
+                  <span class="item-price">₺180</span>
+                </div>
+                <p class="item-desc">
+                  Çıtırın ve akışkanın mükemmel uyumu! Formunu koruyan taptaze
+                  patatesler, zengin cheddar sosunun kremamsı dokusuyla buluştu.
+                  Her lokmada hem o çıtırtıyı hem de yoğun peynir lezzetini
+                  hissettiren, bağımlılık yapacak bir ikili.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/sweetpatates.webp"
+                class="item-img"
+                alt="Fries"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">
+                    Sweet Chilli Soslu Patates Kızartması
+                  </h3>
+                  <span class="item-price">₺180</span>
+                </div>
+                <p class="item-desc">
+                  Çıtırın ve egzotik lezzetin uyumu! Formunu koruyan, yağsız
+                  patatesler, hafif acı ve tatlı notalarıyla sweet chili sosuna
+                  karıştı. Her lokmada hem o çıtırlığı hem de sosun iştah açan
+                  ferahlığını hissettiren, bağımlılık yapıcı bir tercih.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/chipotle.webp"
+                class="item-img"
+                alt="Fries"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Chipotle Soslu Patates Kızartması</h3>
+                  <span class="item-price">₺180</span>
+                </div>
+                <p class="item-desc">
+                  Çıtırın ve dumanın meksika esintisi! Formunu koruyan, yağsız
+                  patatesler, közlenmiş biberlerin derin aromasıyla chipotle
+                  sosuna karıştı. Her lokmada hem o çıtırlığı hem de kremsi bir
+                  acılığı hissettiren, gurme bir tercih.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/garlic.webp"
+                class="item-img"
+                alt="Fries"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Garlic Soslu Patates Kızartması</h3>
+                  <span class="item-price">₺180</span>
+                </div>
+                <p class="item-desc">
+                  Çıtırın ve aromanın mükemmel uyumu! Formunu koruyan yağsız
+                  patatesler, sarımsağın o vazgeçilmez aromasıyla hazırlanan
+                  garlic sosuna karıştı. Her lokmada hem o çıtırlığı hem de
+                  sarımsağın verdiği o güçlü lezzeti hissettiren, gurme bir
+                  tercih.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/ranch.webp"
+                class="item-img"
+                alt="Fries"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Ranch Soslu Patates Kızartması</h3>
+                  <span class="item-price">₺180</span>
+                </div>
+                <p class="item-desc">
+                  Çıtırın ve baharatların serin dansı! Formunu koruyan, yağsız
+                  patatesler, sarımsak ve yeşilliklerin aromasıyla hazırlanan
+                  ranch sosuna karıştı. Her lokmada hem o çıtırlığı hem de
+                  ferahlatıcı lezzeti hissettiren, asla eskimeyen bir ikili.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/barbekupatates.webp"
+                class="item-img"
+                alt="Fries"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Barbekü Soslu Patates Kızartması</h3>
+                  <span class="item-price">₺180</span>
+                </div>
+                <p class="item-desc">
+                  Çıtırın ve dumanın dansı! Formunu koruyan, yağsız ve hafif
+                  patatesler, barbekü sosunun o karakteristik tatlı - isli
+                  aromasıyla buluştu. Her lokmada hem çıtırlığı hem de köz
+                  tadını hissettiren, damaklarda iz bırakan bir lezzet.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-kroket" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Kroket
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/soganhalkha.webp"
+                class="item-img"
+                alt="Kroket"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Soğan Halka Kroket 6'lı</h3>
+                  <span class="item-price">₺60</span>
+                </div>
+                <p class="item-desc">
+                  Sıradan bir atıştırmalık değil! Soğanın en lezzetli hali, özel
+                  harçla buluşup nar gibi kızardı. Her lokmada dağılan o efsane
+                  kaplaması ve içindeki yumuşacık lezzetiyle, ana yemeğinden rol
+                  çalmaya aday.
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/silindirpatates.webp"
+                class="item-img"
+                alt="Kroket"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Silindir Patates Kroket 6'lı</h3>
+                  <span class="item-price">₺100</span>
+                </div>
+                <p class="item-desc">
+                  Dışı çıtır zırh, içi yumuşacık bir kalp! Özel kaplamasıyla nar
+                  gibi kızarmış, içindeki ipeksi patates püresiyle damakta
+                  eriyen lezzet. Isırdığında duyacağın o ses ve hissedeceğin o
+                  yumuşaklık bağımlılık yapacak.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/mozarella.webp"
+                class="item-img"
+                alt="Kroket"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Mozzarella Çubuk 6'lı</h3>
+                  <span class="item-price">₺140</span>
+                </div>
+                <p class="item-desc">
+                  Uzadıkça uzayan bir lezzet şöleni! Dışı özel baharatlı çıtır
+                  kaplama, içi sıcacık ve akışkan gerçek mozzarella peyniri.
+                  Isırdığında o peynirin sonsuza kadar sürmesi garanti! Hem
+                  gözünü hem karnını doyuran, eğlenceli ve nefis bir
+                  atıştırmalık.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-salata" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Salatalar
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/salatalik.webp"
+                class="item-img"
+                alt="Salata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Salatalık Turşusu</h3>
+                  <span class="item-price">₺50</span>
+                </div>
+                <p class="item-desc">
+                  Sofraların vazgeçilmezi, kütür kütür lezzet. Ana yemeğinizin
+                  yanına yakışacak, iştah kabartan klasik lezzet.
+                </p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/jalapeno.webp"
+                class="item-img"
+                alt="Salata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Jalapeno Biber</h3>
+                  <span class="item-price">₺50</span>
+                </div>
+                <p class="item-desc">
+                  Acı ve ekşinin mükemmel dengesi. Yemeklerinizin yanına
+                  ferahlatıcı ve iştah kabartan bir dokunuş ekleyin. Dilimler
+                  halinde servis edilir.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-sos" class="menu-category">
+          <h2 class="category-title">
+            <span class="pani-prefix">PANİ *</span> Soslar
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/ranchsos.webp"
+                class="item-img"
+                alt="Sos"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Ranch Sos</h3>
+                  <span class="item-price">₺30</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/cheddarsos.webp"
+                class="item-img"
+                alt="Sos"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Cheddar Sos</h3>
+                  <span class="item-price">₺50</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/sweetchilisos.webp"
+                class="item-img"
+                alt="Sos"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Sweet Chilli Sos (50cc.)</h3>
+                  <span class="item-price">₺30</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/barbekusos.webp"
+                class="item-img"
+                alt="Sos"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Barbekü Sos (50cc.)</h3>
+                  <span class="item-price">₺30</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/chipotlesos.webp"
+                class="item-img"
+                alt="Sos"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Chipotle Sos (50cc.)</h3>
+                  <span class="item-price">₺30</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/garlicsos.webp"
+                class="item-img"
+                alt="Sos"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Garlic Sos (50cc.)</h3>
+                  <span class="item-price">₺40</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cat-icecek" class="menu-category">
+          <h2 class="category-title">İçecekler</h2>
+          <div class="products-grid">
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/pepsi.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Pepsi (33cl.)</h3>
+                  <span class="item-price">₺60</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/pepsizero.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Pepsi Zero Sugar(33cl.)</h3>
+                  <span class="item-price">₺60</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/yedigun.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Yedi Gün (33cl.)</h3>
+                  <span class="item-price">₺60</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/7up.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">7UP (33cl.)</h3>
+                  <span class="item-price">₺60</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/liptonmango.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">
+                    Lipton Ice Tea Mango ve Egzotik Karışık Meyve (33 Cl)
+                    (33cl.)
+                  </h3>
+                  <span class="item-price">₺60</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/lipton.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Lipton Ice Tea Şeftali (33cl.)</h3>
+                  <span class="item-price">₺60</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/liptonliom.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Lipton Ice Tea Limon (33cl.)</h3>
+                  <span class="item-price">₺60</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/pepsisise.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Pepsi Sise (25cl.)</h3>
+                  <span class="item-price">₺50</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/pepsizerosise.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Pepsi Zero Sugar Sise (25cl.)</h3>
+                  <span class="item-price">₺50</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/yedigunsise,.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Yedigün Şişe (25cl.)</h3>
+                  <span class="item-price">₺50</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/frukosise.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Fruko Şişe (25cl.)</h3>
+                  <span class="item-price">₺50</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/meyvelisoda.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Meyveli Soda (20 cl.)</h3>
+                  <span class="item-price">₺49</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/madensuyu.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Maden Suyu (20 cl.)</h3>
+                  <span class="item-price">₺45</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/ayran.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Ayran (27.5 cl.)</h3>
+                  <span class="item-price">₺59</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+            <div class="menu-item">
+              <img
+                src="assets/img/menu/su.webp"
+                class="item-img"
+                alt="Limonata"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Su (33 cl.)</h3>
+                  <span class="item-price">₺29</span>
+                </div>
+                <p class="item-desc"></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- <section id="cat-bubble" class="menu-category">
+          <h2
+            class="category-title"
+            style="color: var(--color-pink); border-color: var(--color-pink)"
+          >
+            Bubble Tea
+          </h2>
+          <div class="products-grid">
+            <div class="menu-item" style="border-color: rgba(255, 0, 85, 0.3)">
+              <img
+                src="https://images.pexels.com/photos/32848535/pexels-photo-32848535.jpeg?w=500"
+                class="item-img"
+                alt="Bubble"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Strawberry Popping</h3>
+                  <span class="item-price">₺110</span>
+                </div>
+                <p class="item-desc">
+                  Çilek aromalı patlayan toplar ve soğuk çay bazı.
+                </p>
+                <button
+                  class="btn-add-cart"
+                  style="
+                    border-color: var(--color-pink);
+                    color: var(--color-pink);
+                  "
+                >
+                  Sepete Ekle
+                </button>
+              </div>
+            </div>
+            <div class="menu-item" style="border-color: rgba(255, 0, 85, 0.3)">
+              <img
+                src="https://images.pexels.com/photos/35255180/pexels-photo-35255180.jpeg?w=500"
+                class="item-img"
+                alt="Bubble"
+              />
+              <div class="item-content">
+                <div class="item-header">
+                  <h3 class="item-title">Mango Dream</h3>
+                  <span class="item-price">₺110</span>
+                </div>
+                <p class="item-desc">Mango lezzeti ve tropikal ferahlık.</p>
+                <button
+                  class="btn-add-cart"
+                  style="
+                    border-color: var(--color-pink);
+                    color: var(--color-pink);
+                  "
+                >
+                  Sepete Ekle
+                </button>
+              </div>
+            </div>
+          </div>
+        </section> -->
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 Paninoteca. Tasarım:
+        <a
+          href="https://hexadijital.com"
+          target="_blank"
+          style="text-decoration: none; color: white; font-weight: 700"
+        >
+          HEXA Dijital
+        </a>
+      </p>
+    </footer>
+    <script>
+      const hamburger = document.querySelector(".hamburger");
+      const navMenu = document.querySelector(".nav-menu");
+
+      // Hamburger butona tıklandığında aç/kapat
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
+      // Linklere tıklandığında menüyü otomatik kapat
+      document.querySelectorAll(".nav-links a, .btn-order").forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        });
+      });
+    </script>
+    <script>
+      // Tüm sectionları ve nav linklerini seç
+      const sections = document.querySelectorAll("section");
+      const navLi = document.querySelectorAll(".category-nav ul li a");
+
+      window.onscroll = () => {
+        var current = "";
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          // -200 offset değeri, başlığın navbar altında kaldığı anı ayarlamak için
+          if (scrollY >= sectionTop - 200) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLi.forEach((a) => {
+          a.classList.remove("active");
+          if (a.getAttribute("href").includes(current)) {
+            a.classList.add("active");
+            // Aktif buton ekranda görünmüyorsa (mobilde) oraya kaydır
+            a.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+              inline: "center",
+            });
+          }
+        });
+      };
+    </script>
+  </body>
+</html>
